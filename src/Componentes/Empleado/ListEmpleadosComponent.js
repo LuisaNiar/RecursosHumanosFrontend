@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from "react";
-import EmpleadoServicio from "../Servicios/EmpleadoServicio";
+import EmpleadoServicio from "../../Servicios/EmpleadoServicio";
+import {Link} from "react-router-dom";
+import axios from "axios";
 
 export const ListEmpleadosComponent = () => {
 
@@ -17,6 +19,9 @@ export const ListEmpleadosComponent = () => {
     return (
         <div className='container'>
             <h2 className='text-center'>Lista Empleados</h2>
+            <Link to='/iniciar-sesion' className='btn btn-primary mb-2'>Iniciar Sesión</Link>
+            &nbsp;&nbsp;
+            <Link to='/agregar-empleado' className='btn btn-primary mb-2'>Agregar Cliente</Link>
             <table className='table table-bordered table-striped'>
                 <thead>
                 <th>ID</th>
@@ -27,6 +32,7 @@ export const ListEmpleadosComponent = () => {
                 <th>Puesto</th>
                 <th>Salario</th>
                 <th>Vacaciones</th>
+                <th>Acciones</th>
                 </thead>
                 <tbody>
                 {
@@ -41,6 +47,9 @@ export const ListEmpleadosComponent = () => {
                                 <td>{empleado.puesto}</td>
                                 <td>{empleado.salario}</td>
                                 <td>{empleado.vacaciones}</td>
+                                <td>
+                                    <Link className='btn btn-info' to={`/editar-empleado/${empleado.id}`}>Actualizar</Link>
+                                </td>
                             </tr>
                     )
                 }
