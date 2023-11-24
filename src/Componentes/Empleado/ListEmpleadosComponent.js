@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import EmpleadoServicio from "../../Servicios/EmpleadoServicio";
-import {Link} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 
 export const ListEmpleadosComponent = () => {
@@ -8,13 +8,25 @@ export const ListEmpleadosComponent = () => {
     const [empleados, setEmpleados] = useState([]);
 
     useEffect(() => {
+        listarEmpleados()
+    }, []);
+
+    const listarEmpleados = () => {
         EmpleadoServicio.getAllEmpleados().then(response => {
             setEmpleados(response.data);
             console.log(response.data);
         }).catch(error => {
             console.log(error)
         })
-    }, []);
+    }
+
+    const eliminarEmpleado = (empleadoId) => {
+        EmpleadoServicio.eliminarEmpleado(empleadoId).then((response) => {
+            listarEmpleados()
+        }).catch(error => {
+            console.log(error)
+        })
+    }
 
     return (
         <div className='container'>
@@ -32,7 +44,8 @@ export const ListEmpleadosComponent = () => {
                 <th>Puesto</th>
                 <th>Salario</th>
                 <th>Vacaciones</th>
-                <th>Acciones</th>
+                <th>Editar</th>
+                <th>Eliminar</th>
                 </thead>
                 <tbody>
                 {
@@ -48,7 +61,13 @@ export const ListEmpleadosComponent = () => {
                                 <td>{empleado.salario}</td>
                                 <td>{empleado.vacaciones}</td>
                                 <td>
-                                    <Link className='btn btn-info' to={`/editar-empleado/${empleado.id}`}>Actualizar</Link>
+                                    <Link className='btn btn-info'
+                                          to={`/editar-empleado/${empleado.id}`}>Actualizar</Link>
+                                </td>
+                                <td>
+                                    <button className='btn btn-danger'
+                                            onClick={() => eliminarEmpleado(empleado.id)}>Eliminar
+                                    </button>
                                 </td>
                             </tr>
                     )
@@ -57,6 +76,8 @@ export const ListEmpleadosComponent = () => {
             </table>
         </div>
     )
+
 }
+
 
 export default ListEmpleadosComponent;
