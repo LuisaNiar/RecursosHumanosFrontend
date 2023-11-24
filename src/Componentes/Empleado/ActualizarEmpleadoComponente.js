@@ -26,21 +26,6 @@ export const ActualizarEmpleadoComponente = () => {
         })
     }
 
-
-    useEffect(() => {
-        EmpleadoServicio.getEmpleadoById(id).then((response) => {
-            setNombre(response.data.nombre)
-            setApellido(response.data.apellido)
-            setCedula(response.data.cedula)
-            setTelefono(response.data.telefono)
-            setPuesto(response.data.puesto)
-            setSalario(response.data.salario)
-            setVacaciones(response.data.vacaciones)
-        }).catch(error=>{
-            console.log(error);
-        })
-    })
-
     return (
         <div>
             <div className='container'>
@@ -91,7 +76,7 @@ export const ActualizarEmpleadoComponente = () => {
                                         placeholder='Digite su numero de celular'
                                         name='telefono'
                                         className='form-control'
-                                        value={nombre}
+                                        value={telefono}
                                         onChange={(e) => setTelefono(e.target.value)}
                                     />
                                 </div>

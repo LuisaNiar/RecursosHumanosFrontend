@@ -8,9 +8,11 @@ const EMPLEADO_ELIMINAR_REST_API_URL = "http://localhost:8080/empleado/eliminar"
 
 class EmpleadoServicio {
 
+
     autenticacionAdmin(usuario) {
         return axios.post(ADMIN_BASE_REST_API_URL, usuario)
     }
+
 
     getAllEmpleados() {
         return axios.get(EMPLEADO_BASE_REST_API_URL);
@@ -27,9 +29,6 @@ class EmpleadoServicio {
     eliminarEmpleado(empleadoId) {
         return axios.post(EMPLEADO_ELIMINAR_REST_API_URL + '/' + empleadoId);
     }
-
-
-
 
 }
 

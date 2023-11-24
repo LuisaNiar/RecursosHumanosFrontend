@@ -76,7 +76,7 @@ export const AgregarEmpleadoComponente = () => {
                                         placeholder='Digite su numero de celular'
                                         name='telefono'
                                         className='form-control'
-                                        value={nombre}
+                                        value={telefono}
                                         onChange={(e) => setTelefono(e.target.value)}
                                     />
                                 </div>
