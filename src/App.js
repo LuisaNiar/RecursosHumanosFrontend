@@ -1,21 +1,26 @@
 import './App.css';
-import ListEmpleadosComponent from "./Componentes/ListEmpleadosComponent";
-import HeaderComponente from "./Componentes/HeaderComponente";
-import FooterComponente from "./Componentes/FooterComponente";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import HeaderComponente from "./Componentes/HeaderComponente";
+import ListEmpleadosComponent from "./Componentes/Empleado/ListEmpleadosComponent";
+import Login from "./Componentes/Login";
+import AgregarEmpleadoComponente from "./Componentes/Empleado/AgregarEmpleadoComponente";
+
 
 function App() {
+
     return (
         <div className="App">
             <BrowserRouter>
                 <HeaderComponente/>
                 <div className='container'>
                     <Routes>
-                        <Route exact path='/' element={<ListEmpleadosComponent/>}></Route>
                         <Route exact path='/empleados' element={<ListEmpleadosComponent/>}></Route>
+                        <Route exact path='/' element={<ListEmpleadosComponent/>}></Route>
+                        <Route exact path='/agregar-empleado' element={<AgregarEmpleadoComponente/>}></Route>
+                        <Route exact path='/editar-empleado/:id' element={<AgregarEmpleadoComponente/>}></Route>
+                        <Route exact path='/iniciar-sesion' element={<Login/>}></Route>
                     </Routes>
                 </div>
-                <FooterComponente/>
             </BrowserRouter>
         </div>
     );
