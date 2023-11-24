@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import EmpleadoServicio from "../../Servicios/EmpleadoServicio";
 import {Link, useNavigate, useParams} from "react-router-dom";
 
-export const AgregarEmpleadoComponente = () => {
+export const ActualizarEmpleadoComponente = () => {
 
 
     const [nombre, setNombre] = useState('');
@@ -15,10 +15,10 @@ export const AgregarEmpleadoComponente = () => {
     const navigate = useNavigate();
     const {id} = useParams();
 
-    const guardarEmpleado = (e) => {
+    const actualizarEmpleado = (e) => {
         e.preventDefault();
         const empleado = {nombre, apellido, cedula, telefono, puesto, salario, vacaciones}
-        EmpleadoServicio.crearEmpleado(empleado).then((response) => {
+        EmpleadoServicio.actualizarEmpleado(id, empleado).then((response) => {
             console.log(response.data);
             navigate('/empleados');
         }).catch(error => {
@@ -26,13 +26,28 @@ export const AgregarEmpleadoComponente = () => {
         })
     }
 
+
+    useEffect(() => {
+        EmpleadoServicio.getEmpleadoById(id).then((response) => {
+            setNombre(response.data.nombre)
+            setApellido(response.data.apellido)
+            setCedula(response.data.cedula)
+            setTelefono(response.data.telefono)
+            setPuesto(response.data.puesto)
+            setSalario(response.data.salario)
+            setVacaciones(response.data.vacaciones)
+        }).catch(error=>{
+            console.log(error);
+        })
+    })
+
     return (
         <div>
             <div className='container'>
                 <div className='row'>
                     <div className='card col-md-6 offset-md-3 offset-md-3'>
                         <h2 className='text-center'>
-                            <h2 className='text-center'>Agregar Empleado</h2>
+                            <h2 className='text-center'>Actualizar Empleado</h2>
                         </h2>
                         <div className='card-body'>
                             <form>
@@ -113,7 +128,7 @@ export const AgregarEmpleadoComponente = () => {
                                         onChange={(e) => setVacaciones(e.target.value)}
                                     />
                                 </div>
-                                <button className='btn btn-success' onClick={(e) => guardarEmpleado(e)}>Guardar</button>
+                                <button className='btn btn-success' onClick={(e) => actualizarEmpleado(e)}>Guardar</button>
                                 &nbsp;&nbsp;
                                 <Link to='/empleados' className='btn btn-danger'>Cancelar</Link>
                             </form>
@@ -125,4 +140,4 @@ export const AgregarEmpleadoComponente = () => {
     )
 }
 
-export default AgregarEmpleadoComponente;
+export default ActualizarEmpleadoComponente;
